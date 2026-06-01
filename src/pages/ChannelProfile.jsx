@@ -50,6 +50,8 @@ const ChannelProfile = () => {
   }, [id]);
 
   const handleSubscribe = async () => {
+    alert("OPEN REAL YOUTBE YOU FUCKI BRO");
+    
     if (!user) return; // User must be logged in
 
     if (isSubscribed) {
