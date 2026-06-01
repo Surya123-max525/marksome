@@ -50,7 +50,7 @@ const ChannelProfile = () => {
   }, [id]);
 
   const handleSubscribe = async () => {
-    alert("OPEN REAL YOUTBE YOU FUCKI BRO");
+    window.open(`https://www.youtube.com/channel/${id}`, '_blank');
     
     if (!user) return; // User must be logged in
 
@@ -119,7 +119,7 @@ const ChannelProfile = () => {
             onClick={handleSubscribe}
             style={{ padding: '10px 28px', borderRadius: '30px' }}
           >
-            {isSubscribed ? 'Subscribed' : 'Subscribe'}
+            {isSubscribed ? 'Subscribed' : 'Open Real YouTube to Subscribe'}
           </button>
         </div>
       </div>
