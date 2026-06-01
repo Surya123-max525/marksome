@@ -15,7 +15,6 @@ const Sidebar = ({ isOpen }) => {
     <aside className={`pro-sidebar ${isOpen ? 'open' : 'closed'}`}>
       <div className="sidebar-content">
         <div className="sidebar-section">
-          <p className="section-title">Menu</p>
           {links.map((link) => (
             <NavLink 
               key={link.path}
