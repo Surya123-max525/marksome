@@ -81,11 +81,11 @@ const Library = () => {
       ) : history.length === 0 ? (
         <p className="text-gray mt-4 animate-slide-up">You haven't watched any videos recently.</p>
       ) : (
-        <div className="pro-grid">
+        <div className="pro-list">
           {history.map((item, idx) => {
             const staggerNum = (idx % 5) + 1;
             return (
-              <div key={item.id} className={`pro-card animate-slide-up stagger-${staggerNum}`} style={{ opacity: 0 }}>
+              <div key={item.id} className={`pro-card-horizontal animate-slide-up stagger-${staggerNum}`} style={{ opacity: 0 }}>
                 <Link to={`/video/${item.video_id}`} className="pro-card-link">
                   <div className="thumbnail-wrapper">
                     <img src={item.thumbnail_url} alt={item.title} className="thumbnail-img" />
