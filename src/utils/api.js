@@ -1,16 +1,32 @@
 import axios from 'axios';
 
-const API_KEY = 'AIzaSyAKsHepOYBuZqgkxg79IxtafJQVUamfeS0';
+const API_KEYS = [
+  'AIzaSyAKsHepOYBuZqgkxg79IxtafJQVUamfeS0',
+  'AIzaSyB31JwT7L-VvE3cMHKAPLY29iP4LepHqMA'
+];
+let currentKeyIndex = 0;
+
 const BASE_URL = 'https://youtube.googleapis.com/youtube/v3';
 
 export const fetchFromAPI = async (url) => {
-  try {
-    const { data } = await axios.get(`${BASE_URL}/${url}&key=${API_KEY}`);
-    return data;
-  } catch (error) {
-    console.error("Error fetching data from YouTube API:", error);
-    return null;
+  let retries = API_KEYS.length;
+  
+  while (retries > 0) {
+    try {
+      const apiKey = API_KEYS[currentKeyIndex];
+      const { data } = await axios.get(`${BASE_URL}/${url}&key=${apiKey}`);
+      return data;
+    } catch (error) {
+      console.warn(`API key ${currentKeyIndex} failed. Switching to next key...`);
+      currentKeyIndex = (currentKeyIndex + 1) % API_KEYS.length;
+      retries--;
+      if (retries === 0) {
+        console.error("All YouTube API keys have failed or exceeded quota.");
+        return null;
+      }
+    }
   }
+  return null;
 };
 
 export const fetchVideos = async (query = 'new videos') => {
