@@ -31,15 +31,15 @@ const Music = () => {
 
   if (!language) {
     return (
-      <div className="language-selector-page flex-col items-center justify-center text-center">
-        <h1 className="hero-title animate-fade-in mb-4">Choose Your Vibe</h1>
-        <p className="text-gray mb-4">Select your preferred language for music recommendations.</p>
-        <div className="lang-grid mt-4">
-          {LANGUAGES.map((lang, idx) => (
+      <div className="flex flex-col items-center justify-center text-center" style={{ minHeight: '60vh' }}>
+        <h1 className="page-title mb-4 animate-slide-up">Choose Your Region</h1>
+        <p className="text-gray mb-8 animate-slide-up stagger-1">Select your preferred language for music recommendations.</p>
+        <div className="flex gap-4 flex-wrap justify-center animate-slide-up stagger-2" style={{ maxWidth: '600px' }}>
+          {LANGUAGES.map((lang) => (
             <button 
               key={lang} 
-              className="lang-bubble animate-fade-in"
-              style={{ animationDelay: `${idx * 0.1}s` }}
+              className="btn btn-primary"
+              style={{ padding: '12px 24px', borderRadius: '24px', fontSize: '16px' }}
               onClick={() => selectLanguage(lang)}
             >
               {lang}
@@ -51,25 +51,24 @@ const Music = () => {
   }
 
   return (
-    <div className="home-page" style={{ padding: '24px' }}>
-      <div className="flex justify-between items-center mb-4">
-        <h2>Trending Music: <span className="neon-text">{language}</span></h2>
-        <button className="btn-glass text-xs" onClick={() => selectLanguage(null)}>Change Language</button>
+    <div className="home-page">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="page-title">Trending Music: {language}</h2>
+        <button className="btn" onClick={() => selectLanguage(null)}>Change Language</button>
       </div>
 
       {loading ? (
-        <div className="bento-grid mt-4">
+        <div className="pro-grid">
           {[...Array(12)].map((_, i) => (
-            <div key={i} className="skeleton bento-item" style={{ minHeight: '200px' }}></div>
+            <div key={i} className="skeleton" style={{ aspectRatio: '16/9', width: '100%' }}></div>
           ))}
         </div>
       ) : (
-        <div className="bento-grid mt-4">
-          {videos.map((video, idx) => (
-            <div className="bento-item" key={idx}>
-              <VideoCard video={video} />
-            </div>
-          ))}
+        <div className="pro-grid">
+          {videos.map((video, idx) => {
+            const staggerNum = (idx % 5) + 1;
+            return <VideoCard video={video} key={idx} staggerClass={`stagger-${staggerNum}`} />;
+          })}
         </div>
       )}
     </div>

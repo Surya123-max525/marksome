@@ -14,7 +14,7 @@ export const fetchFromAPI = async (url) => {
 };
 
 export const fetchVideos = async (query = 'new videos') => {
-  const url = `search?part=snippet&q=${query}&maxResults=50&type=video`;
+  const url = `search?part=snippet&q=${query}&maxResults=50&type=video&safeSearch=strict`;
   return await fetchFromAPI(url);
 };
 
@@ -24,22 +24,17 @@ export const fetchVideoDetails = async (videoId) => {
 };
 
 export const fetchRelatedVideos = async (videoId) => {
-  // The 'relatedToVideoId' parameter is deprecated by YouTube API v3 and returns a 400 error.
-  // Instead, we will fetch generic popular/recommended videos for the sidebar to prevent errors.
-  const url = `search?part=snippet&q=recommended&type=video&maxResults=20`;
+  const url = `search?part=snippet&q=recommended&type=video&maxResults=20&safeSearch=strict`;
   return await fetchFromAPI(url);
 };
 
 export const fetchMusic = async (language = 'Global') => {
-  // Fetch popular music videos based on language preference
-  const query = language === 'Global' ? 'latest music videos Vevo' : `latest ${language} music videos Vevo`;
-  const url = `search?part=snippet&q=${encodeURIComponent(query)}&type=video&maxResults=50`;
+  const query = language === 'Global' ? 'latest popular music videos Vevo' : `latest ${language} popular music videos Vevo`;
+  const url = `search?part=snippet&q=${encodeURIComponent(query)}&type=video&maxResults=50&safeSearch=strict`;
   return await fetchFromAPI(url);
 };
 
 export const fetchShorts = async () => {
-  // YouTube API v3 doesn't have a direct "shorts" endpoint.
-  // We search for #shorts
-  const url = `search?part=snippet&q=%23shorts&maxResults=30&type=video`;
+  const url = `search?part=snippet&q=%23shorts&maxResults=30&type=video&safeSearch=strict`;
   return await fetchFromAPI(url);
 };
