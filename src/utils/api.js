@@ -38,3 +38,49 @@ export const fetchShorts = async () => {
   const url = `search?part=snippet&q=%23shorts&maxResults=30&type=video&safeSearch=strict`;
   return await fetchFromAPI(url);
 };
+
+const channelCache = {};
+let pendingChannelIds = new Set();
+let fetchTimeout = null;
+let resolveQueue = [];
+
+export const fetchChannelIcon = (channelId) => {
+  return new Promise((resolve) => {
+    if (channelCache[channelId]) {
+      return resolve(channelCache[channelId]);
+    }
+
+    pendingChannelIds.add(channelId);
+    resolveQueue.push({ channelId, resolve });
+
+    if (!fetchTimeout) {
+      fetchTimeout = setTimeout(async () => {
+        const idsToFetch = Array.from(pendingChannelIds);
+        const currentQueue = [...resolveQueue];
+        
+        pendingChannelIds.clear();
+        resolveQueue = [];
+        fetchTimeout = null;
+
+        for (let i = 0; i < idsToFetch.length; i += 50) {
+          const chunk = idsToFetch.slice(i, i + 50).join(',');
+          try {
+            const data = await fetchFromAPI(`channels?part=snippet&id=${chunk}`);
+            if (data?.items) {
+              data.items.forEach(item => {
+                channelCache[item.id] = item.snippet.thumbnails.default.url;
+              });
+            }
+          } catch (e) {
+            console.error(e);
+          }
+        }
+
+        currentQueue.forEach(({ channelId, resolve }) => {
+          resolve(channelCache[channelId] || null);
+        });
+
+      }, 50);
+    }
+  });
+};

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { ThumbsUp, ThumbsDown, MessageSquare, Share2, MoreHorizontal } from 'lucide-react';
 import { fetchShorts } from '../utils/api';
+import ChannelAvatar from '../components/ChannelAvatar';
 import './Shorts.css';
 
 const Shorts = () => {
@@ -45,31 +46,31 @@ const Shorts = () => {
               <div className="shorts-info">
                 <h3 className="line-clamp-2">{short.snippet.title}</h3>
                 <div className="flex items-center gap-2 mt-2">
-                  <div className="channel-avatar" style={{width: 32, height: 32}}>{short.snippet.channelTitle.charAt(0)}</div>
+                  <ChannelAvatar channelId={short.snippet.channelId} channelTitle={short.snippet.channelTitle} size="md" />
                   <span className="text-sm font-bold">{short.snippet.channelTitle}</span>
                   <button className="btn btn-primary" style={{padding: '4px 12px', fontSize: 12}}>Subscribe</button>
                 </div>
               </div>
             </div>
             
-            <div className="shorts-actions flex-col items-center gap-4">
-              <button className="action-btn-shorts flex-col items-center gap-1">
+            <div className="shorts-actions flex flex-col items-center gap-4">
+              <button className="action-btn-shorts flex flex-col items-center gap-1">
                 <div className="circle-bg"><ThumbsUp size={24} fill="var(--bg-secondary)" /></div>
                 <span className="text-xs">Like</span>
               </button>
-              <button className="action-btn-shorts flex-col items-center gap-1">
+              <button className="action-btn-shorts flex flex-col items-center gap-1">
                 <div className="circle-bg"><ThumbsDown size={24} /></div>
                 <span className="text-xs">Dislike</span>
               </button>
-              <button className="action-btn-shorts flex-col items-center gap-1">
+              <button className="action-btn-shorts flex flex-col items-center gap-1">
                 <div className="circle-bg"><MessageSquare size={24} /></div>
-                <span className="text-xs">4.2K</span>
+                <span className="text-xs">Comment</span>
               </button>
-              <button className="action-btn-shorts flex-col items-center gap-1">
+              <button className="action-btn-shorts flex flex-col items-center gap-1">
                 <div className="circle-bg"><Share2 size={24} /></div>
                 <span className="text-xs">Share</span>
               </button>
-              <button className="action-btn-shorts flex-col items-center gap-1">
+              <button className="action-btn-shorts flex flex-col items-center gap-1">
                 <div className="circle-bg"><MoreHorizontal size={24} /></div>
               </button>
             </div>

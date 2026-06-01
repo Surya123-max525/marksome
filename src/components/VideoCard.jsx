@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import ChannelAvatar from './ChannelAvatar';
 import './VideoCard.css';
 
 const VideoCard = ({ video, staggerClass = '' }) => {
@@ -21,7 +22,7 @@ const VideoCard = ({ video, staggerClass = '' }) => {
           <div className="duration-badge">Live</div>
         </div>
         <div className="card-content flex mt-3 gap-3">
-          <div className="channel-avatar-sm">{snippet?.channelTitle.charAt(0)}</div>
+          <ChannelAvatar channelId={snippet?.channelId} channelTitle={snippet?.channelTitle} size="md" />
           <div className="card-info flex flex-col">
             <h3 className="card-title line-clamp-2">{snippet?.title}</h3>
             <p className="card-channel text-sm text-gray mt-1">{snippet?.channelTitle}</p>

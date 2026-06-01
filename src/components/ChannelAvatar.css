@@ -1,0 +1,33 @@
+.channel-avatar-img {
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: var(--bg-tertiary);
+}
+
+.channel-avatar-fallback {
+  border-radius: 50%;
+  background-color: var(--text-primary);
+  color: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.size-sm {
+  width: 24px;
+  height: 24px;
+  font-size: 12px;
+}
+
+.size-md {
+  width: 36px;
+  height: 36px;
+  font-size: 16px;
+}
+
+.size-lg {
+  width: 48px;
+  height: 48px;
+  font-size: 20px;
+}

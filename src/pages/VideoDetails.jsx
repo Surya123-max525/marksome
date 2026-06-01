@@ -4,6 +4,7 @@ import { ThumbsUp, ThumbsDown, Share2, Download, MoreHorizontal } from 'lucide-r
 import { fetchVideoDetails, fetchRelatedVideos } from '../utils/api';
 import { supabase } from '../utils/supabaseClient';
 import VideoCard from '../components/VideoCard';
+import ChannelAvatar from '../components/ChannelAvatar';
 import './VideoDetails.css';
 
 const VideoDetails = () => {
@@ -64,7 +65,7 @@ const VideoDetails = () => {
         
         <div className="video-stats-actions flex justify-between items-center">
           <div className="channel-info flex items-center gap-4">
-            <div className="channel-avatar-lg">{snippet.channelTitle.charAt(0)}</div>
+            <ChannelAvatar channelId={snippet.channelId} channelTitle={snippet.channelTitle} size="lg" />
             <div>
               <h3 className="channel-name-lg">{snippet.channelTitle}</h3>
               <p className="text-sm text-gray">Subscriber count hidden</p>
