@@ -16,8 +16,8 @@ export const fetchFromAPI = async (url) => {
       const apiKey = API_KEYS[currentKeyIndex];
       const { data } = await axios.get(`${BASE_URL}/${url}&key=${apiKey}`);
       return data;
-    } catch (error) {
-      console.warn(`API key ${currentKeyIndex} failed. Switching to next key...`);
+    } catch (e) {
+      console.warn(`API key ${currentKeyIndex} failed: ${e.message}. Switching to next key...`);
       currentKeyIndex = (currentKeyIndex + 1) % API_KEYS.length;
       retries--;
       if (retries === 0) {
@@ -52,6 +52,16 @@ export const fetchMusic = async (language = 'Global') => {
 
 export const fetchShorts = async () => {
   const url = `search?part=snippet&q=%23shorts&maxResults=30&type=video&safeSearch=strict`;
+  return await fetchFromAPI(url);
+};
+
+export const fetchChannelDetails = async (channelId) => {
+  const url = `channels?part=snippet,statistics,brandingSettings&id=${channelId}`;
+  return await fetchFromAPI(url);
+};
+
+export const fetchChannelVideos = async (channelId) => {
+  const url = `search?channelId=${channelId}&part=snippet&order=date&maxResults=50&type=video&safeSearch=strict`;
   return await fetchFromAPI(url);
 };
 

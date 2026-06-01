@@ -11,6 +11,9 @@ import Auth from './pages/Auth';
 import Music from './pages/Music';
 import { supabase } from './utils/supabaseClient';
 
+import ChannelProfile from './pages/ChannelProfile';
+import Subscriptions from './pages/Subscriptions';
+
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [session, setSession] = useState(null);
@@ -55,6 +58,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/video/:id" element={<VideoDetails />} />
+          <Route path="/channel/:id" element={<ChannelProfile />} />
+          <Route path="/subscriptions" element={<Subscriptions />} />
           <Route path="/search/:searchTerm" element={<Search />} />
           <Route path="/shorts" element={<Shorts />} />
           <Route path="/library" element={<Library />} />

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { ThumbsUp, ThumbsDown, Share2, Download, MoreHorizontal } from 'lucide-react';
 import { fetchVideoDetails, fetchRelatedVideos } from '../utils/api';
 import { supabase } from '../utils/supabaseClient';
@@ -65,9 +65,13 @@ const VideoDetails = () => {
         
         <div className="video-stats-actions flex justify-between items-center">
           <div className="channel-info flex items-center gap-4">
-            <ChannelAvatar channelId={snippet.channelId} channelTitle={snippet.channelTitle} size="lg" />
+            <Link to={`/channel/${snippet.channelId}`}>
+              <ChannelAvatar channelId={snippet.channelId} channelTitle={snippet.channelTitle} size="lg" />
+            </Link>
             <div>
-              <h3 className="channel-name-lg">{snippet.channelTitle}</h3>
+              <Link to={`/channel/${snippet.channelId}`}>
+                <h3 className="channel-name-lg hover:text-white transition-colors">{snippet.channelTitle}</h3>
+              </Link>
               <p className="text-sm text-gray">Subscriber count hidden</p>
             </div>
             <button className="btn btn-primary subscribe-btn">Subscribe</button>

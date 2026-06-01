@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Home, Film, Music, Library, Search } from 'lucide-react';
+import { Home, Film, Music, Library, Search, UserCheck } from 'lucide-react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import './Sidebar.css';
 
@@ -10,6 +10,7 @@ const Sidebar = ({ isOpen }) => {
   const links = [
     { name: 'Home', icon: <Home size={18} />, path: '/' },
     { name: 'Shorts', icon: <Film size={18} />, path: '/shorts' },
+    { name: 'Subscriptions', icon: <UserCheck size={18} />, path: '/subscriptions' },
     { name: 'Music', icon: <Music size={18} />, path: '/music' },
     { name: 'Library', icon: <Library size={18} />, path: '/library' },
   ];
