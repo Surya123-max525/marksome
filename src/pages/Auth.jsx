@@ -6,6 +6,7 @@ import './Auth.css';
 const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [fullName, setFullName] = useState('');
   const [loading, setLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
   const [errorMsg, setErrorMsg] = useState(null);
@@ -28,6 +29,11 @@ const Auth = () => {
       const { error: signUpError } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          data: {
+            full_name: fullName,
+          }
+        }
       });
       error = signUpError;
     }
@@ -56,10 +62,30 @@ const Auth = () => {
           </div>
 
           <h2 className="dark-title">{isLogin ? 'Sign in to your account' : 'Create a new account'}</h2>
+          
+          <p className="dark-subtitle mb-6" style={{ color: '#9ca3af', fontSize: '14px' }}>
+            {isLogin ? 'Not a member? ' : 'Already a member? '}
+            <button type="button" onClick={() => setIsLogin(!isLogin)} className="dark-link-btn" style={{ marginLeft: '4px' }}>
+              {isLogin ? 'Create an account' : 'Sign in to your account'}
+            </button>
+          </p>
 
           {errorMsg && <div className="dark-error">{errorMsg}</div>}
 
           <form onSubmit={handleAuth} className="dark-form">
+            {!isLogin && (
+              <div className="dark-input-group mb-4">
+                <label>Full Name</label>
+                <input 
+                  type="text" 
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  placeholder="John Doe"
+                  required={!isLogin}
+                />
+              </div>
+            )}
+
             <div className="dark-input-group">
               <label>Email address</label>
               <input 
