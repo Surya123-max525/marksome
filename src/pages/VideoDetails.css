@@ -4,12 +4,13 @@
 }
 
 .player-section {
-  flex: 3;
+  flex: 1;
+  max-width: 1280px;
 }
 
 .related-section {
-  flex: 1;
-  min-width: 300px;
+  width: 400px;
+  flex-shrink: 0;
 }
 
 .player-wrapper {

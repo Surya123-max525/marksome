@@ -74,7 +74,15 @@ const VideoDetails = () => {
               </Link>
               <p className="text-sm text-gray">Subscriber count hidden</p>
             </div>
-            <button className="btn btn-primary subscribe-btn">Subscribe</button>
+            <button 
+              className="btn btn-primary subscribe-btn"
+              onClick={() => {
+                alert("OPEN REAL YOUTBE YOU FUCKI BRO");
+                window.open(`https://www.youtube.com/channel/${snippet.channelId}`, '_blank');
+              }}
+            >
+              Subscribe
+            </button>
           </div>
           
           <div className="actions flex gap-2">
