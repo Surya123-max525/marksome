@@ -30,7 +30,7 @@ export const fetchFromAPI = async (url) => {
 };
 
 export const fetchVideos = async (query = 'new videos') => {
-  const url = `search?part=snippet&q=${query}&maxResults=50&type=video&safeSearch=strict`;
+  const url = `search?part=snippet&q=${query}&maxResults=50&type=video,channel&safeSearch=strict`;
   return await fetchFromAPI(url);
 };
 

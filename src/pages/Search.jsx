@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import { fetchVideos } from '../utils/api';
 import VideoCard from '../components/VideoCard';
 
+import ChannelCard from '../components/ChannelCard';
+
 const Search = () => {
   const { searchTerm } = useParams();
   const [videos, setVideos] = useState([]);
@@ -31,9 +33,12 @@ const Search = () => {
         </div>
       ) : (
         <div className="pro-grid mt-4">
-          {videos.map((video, idx) => {
+          {videos.map((item, idx) => {
             const staggerNum = (idx % 5) + 1;
-            return <VideoCard key={idx} video={video} staggerClass={`stagger-${staggerNum}`} />;
+            if (item.id?.kind === 'youtube#channel') {
+              return <ChannelCard key={idx} channel={item} staggerClass={`stagger-${staggerNum}`} />;
+            }
+            return <VideoCard key={idx} video={item} staggerClass={`stagger-${staggerNum}`} />;
           })}
         </div>
       )}
