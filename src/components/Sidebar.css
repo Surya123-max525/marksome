@@ -1,11 +1,11 @@
 .pro-sidebar {
-  width: var(--sidebar-width);
-  height: 100%;
+  grid-column: 1;
+  grid-row: 2;
   background-color: var(--bg-primary);
   border-right: 1px solid var(--border-color);
-  transition: width 0.3s ease;
   overflow-y: auto;
-  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .pro-sidebar.closed {

@@ -47,24 +47,21 @@ function App() {
   }
 
   return (
-    <div className="app-container">
+    <div className={`app-container ${!session ? 'auth-mode' : ''} ${!sidebarOpen ? 'sidebar-closed' : ''}`}>
       {session && <Navbar toggleSidebar={toggleSidebar} />}
+      {session && <Sidebar isOpen={sidebarOpen} />}
       
-      <div className="main-body" style={{ paddingTop: session ? 'var(--nav-height)' : '0' }}>
-        {session && <Sidebar isOpen={sidebarOpen} />}
-        
-        <main className="content-area" style={{ padding: session ? '24px 32px' : '0' }}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/video/:id" element={<VideoDetails />} />
-            <Route path="/search/:searchTerm" element={<Search />} />
-            <Route path="/shorts" element={<Shorts />} />
-            <Route path="/library" element={<Library />} />
-            <Route path="/music" element={<Music />} />
-            <Route path="/auth" element={<Auth />} />
-          </Routes>
-        </main>
-      </div>
+      <main className="content-area">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/video/:id" element={<VideoDetails />} />
+          <Route path="/search/:searchTerm" element={<Search />} />
+          <Route path="/shorts" element={<Shorts />} />
+          <Route path="/library" element={<Library />} />
+          <Route path="/music" element={<Music />} />
+          <Route path="/auth" element={<Auth />} />
+        </Routes>
+      </main>
     </div>
   );
 }
