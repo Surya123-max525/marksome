@@ -13,7 +13,8 @@
 }
 
 .pro-sidebar.closed .section-title,
-.pro-sidebar.closed .sidebar-link span {
+.pro-sidebar.closed .sidebar-link span,
+.pro-sidebar.closed .channel-search-section {
   display: none;
 }
 
