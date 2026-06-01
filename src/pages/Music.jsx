@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchMusic } from '../utils/api';
 import VideoCard from '../components/VideoCard';
 import './Music.css';

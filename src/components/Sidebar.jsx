@@ -1,5 +1,4 @@
-import React from 'react';
-import { Home, Film, Music, Library, Compass } from 'lucide-react';
+import { Home, Film, Music, Library } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import './Sidebar.css';
 

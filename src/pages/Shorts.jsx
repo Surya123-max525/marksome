@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import ReactPlayer from 'react-player';
+import { useEffect, useState } from 'react';
 import { ThumbsUp, ThumbsDown, MessageSquare, Share2, MoreHorizontal } from 'lucide-react';
 import { fetchShorts } from '../utils/api';
 import ChannelAvatar from '../components/ChannelAvatar';

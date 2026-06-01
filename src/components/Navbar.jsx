@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Search, Menu, LogOut, User } from 'lucide-react';
+import { Search, Menu, User } from 'lucide-react';
 import { supabase } from '../utils/supabaseClient';
 import './Navbar.css';
 

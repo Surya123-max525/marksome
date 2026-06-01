@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ThumbsUp, ThumbsDown, Share2, Download, MoreHorizontal } from 'lucide-react';
 import { fetchVideoDetails, fetchRelatedVideos } from '../utils/api';

@@ -23,7 +23,7 @@ export const fetchVideoDetails = async (videoId) => {
   return await fetchFromAPI(url);
 };
 
-export const fetchRelatedVideos = async (videoId) => {
+export const fetchRelatedVideos = async () => {
   const url = `search?part=snippet&q=recommended&type=video&maxResults=20&safeSearch=strict`;
   return await fetchFromAPI(url);
 };
