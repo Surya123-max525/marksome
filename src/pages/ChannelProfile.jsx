@@ -100,22 +100,22 @@ const ChannelProfile = () => {
       )}
 
       {/* Profile Header */}
-      <div className="channel-header flex items-center p-6 bg-zinc-900 border-b border-gray-800">
+      <div className="channel-header-glass flex items-center p-8">
         <img 
           src={channelDetail?.snippet?.thumbnails?.medium?.url} 
           alt={channelDetail?.snippet?.title} 
           className="channel-avatar-huge"
         />
-        <div className="channel-info-main flex-col ml-6">
-          <h1 className="text-3xl font-bold">{channelDetail?.snippet?.title}</h1>
-          <p className="text-gray mt-2">
+        <div className="channel-info-main flex-col ml-8">
+          <h1 className="text-4xl font-extrabold tracking-tight">{channelDetail?.snippet?.title}</h1>
+          <p className="text-gray mt-2 font-medium">
             {parseInt(channelDetail?.statistics?.subscriberCount).toLocaleString()} subscribers &bull; 
-            {channelDetail?.statistics?.videoCount} videos
+            {' '}{channelDetail?.statistics?.videoCount} videos
           </p>
           <button 
-            className={`btn mt-4 ${isSubscribed ? 'bg-zinc-700 text-white' : 'btn-primary'}`} 
+            className={`btn mt-5 ${isSubscribed ? 'btn-subscribed text-white' : 'btn-primary btn-subscribe'}`} 
             onClick={handleSubscribe}
-            style={{ padding: '8px 24px', borderRadius: '24px' }}
+            style={{ padding: '10px 28px', borderRadius: '30px' }}
           >
             {isSubscribed ? 'Subscribed' : 'Subscribe'}
           </button>
