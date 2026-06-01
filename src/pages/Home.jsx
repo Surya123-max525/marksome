@@ -9,7 +9,20 @@ const Home = () => {
 
   useEffect(() => {
     const load = async () => {
-      const data = await fetchVideos('programming design technology');
+      let query = 'trending new popular';
+      const historyStr = localStorage.getItem('user_search_history');
+      if (historyStr) {
+        try {
+          const history = JSON.parse(historyStr);
+          if (history && history.length > 0) {
+            query = history.join(' ');
+          }
+        } catch (e) {
+          console.error('Error parsing search history', e);
+        }
+      }
+
+      const data = await fetchVideos(query);
       if (data?.items) {
         setVideos(data.items);
       }

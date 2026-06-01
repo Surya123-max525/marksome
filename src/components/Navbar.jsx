@@ -17,8 +17,15 @@ const Navbar = ({ toggleSidebar }) => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    if (searchTerm) {
-      navigate(`/search/${searchTerm}`);
+    if (searchTerm.trim()) {
+      const term = searchTerm.trim();
+      let history = JSON.parse(localStorage.getItem('user_search_history') || '[]');
+      history = history.filter(t => t.toLowerCase() !== term.toLowerCase());
+      history.unshift(term);
+      history = history.slice(0, 5);
+      localStorage.setItem('user_search_history', JSON.stringify(history));
+
+      navigate(`/search/${term}`);
       setSearchTerm('');
     }
   };
