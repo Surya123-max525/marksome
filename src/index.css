@@ -136,6 +136,11 @@ button {
   width: 100%;
 }
 
+.content-area:has(.shorts-page) {
+  padding: 0;
+  overflow-y: hidden;
+}
+
 /* Horizontal List Layout */
 .pro-list {
   display: flex;
