@@ -36,11 +36,42 @@ const Library = () => {
     fetchHistory();
   }, []);
 
-  if (loading) return <div className="p-4">Loading history...</div>;
+  const clearHistory = async () => {
+    if (!user) return;
+    const { error } = await supabase
+      .from('watch_history')
+      .delete()
+      .eq('user_id', user.id);
+    
+    if (!error) {
+      setHistory([]);
+    } else {
+      console.error("Failed to clear history:", error);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="home-page">
+        <div className="pro-grid">
+          {[...Array(8)].map((_, i) => (
+            <div key={i} className="skeleton" style={{ aspectRatio: '16/9', width: '100%' }}></div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="library-page" style={{ padding: '24px' }}>
-      <h2>Watch History (Last 7 Days)</h2>
+    <div className="home-page">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="page-title">Watch History (Last 7 Days)</h2>
+        {user && history.length > 0 && (
+          <button className="btn" style={{ color: '#ef4444', borderColor: '#ef4444' }} onClick={clearHistory}>
+            Clear History
+          </button>
+        )}
+      </div>
       
       {!user ? (
         <div className="mt-4">
@@ -48,25 +79,26 @@ const Library = () => {
           <Link to="/auth" className="btn btn-primary">Sign In</Link>
         </div>
       ) : history.length === 0 ? (
-        <p className="text-gray mt-4">You haven't watched any videos recently.</p>
+        <p className="text-gray mt-4 animate-slide-up">You haven't watched any videos recently.</p>
       ) : (
-        <div className="video-grid mt-4">
-          {history.map((item) => (
-            <div key={item.id} className="video-card animate-fade-in">
-              <Link to={`/video/${item.video_id}`}>
-                <div className="thumbnail-container">
-                  <img src={item.thumbnail_url} alt={item.title} className="thumbnail" />
-                </div>
-                <div className="video-info flex gap-4 mt-2">
-                  <div className="video-details flex flex-col">
-                    <h3 className="video-title line-clamp-2">{item.title}</h3>
-                    <p className="channel-name text-sm text-gray">{item.channel_title}</p>
-                    <p className="text-xs text-gray">Watched {moment(item.viewed_at).fromNow()}</p>
+        <div className="pro-grid">
+          {history.map((item, idx) => {
+            const staggerNum = (idx % 5) + 1;
+            return (
+              <div key={item.id} className={`pro-card animate-slide-up stagger-${staggerNum}`} style={{ opacity: 0 }}>
+                <Link to={`/video/${item.video_id}`} className="pro-card-link">
+                  <div className="thumbnail-wrapper">
+                    <img src={item.thumbnail_url} alt={item.title} className="thumbnail-img" />
                   </div>
-                </div>
-              </Link>
-            </div>
-          ))}
+                  <div className="pro-card-info">
+                    <h3 className="pro-card-title">{item.title}</h3>
+                    <p className="pro-card-channel">{item.channel_title}</p>
+                    <p className="pro-card-meta">Watched {moment(item.viewed_at).fromNow()}</p>
+                  </div>
+                </Link>
+              </div>
+            );
+          })}
         </div>
       )}
     </div>
