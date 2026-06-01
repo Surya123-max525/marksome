@@ -24,16 +24,17 @@ const Search = () => {
     <div className="search-page">
       <h2>Search Results for: <span className="text-gray">{searchTerm}</span></h2>
       {loading ? (
-        <div className="video-grid mt-4">
+        <div className="pro-grid mt-4">
           {[...Array(8)].map((_, i) => (
             <div key={i} className="skeleton" style={{ width: '100%', aspectRatio: '16/9' }}></div>
           ))}
         </div>
       ) : (
-        <div className="video-grid mt-4">
-          {videos.map((video, idx) => (
-            <VideoCard key={idx} video={video} />
-          ))}
+        <div className="pro-grid mt-4">
+          {videos.map((video, idx) => {
+            const staggerNum = (idx % 5) + 1;
+            return <VideoCard key={idx} video={video} staggerClass={`stagger-${staggerNum}`} />;
+          })}
         </div>
       )}
     </div>
