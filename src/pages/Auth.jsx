@@ -25,8 +25,14 @@ const Auth = () => {
         password,
       });
       error = signInError;
+
+      if (error) {
+        setErrorMsg(error.message);
+      } else {
+        navigate('/');
+      }
     } else {
-      const { error: signUpError } = await supabase.auth.signUp({
+      const { data, error: signUpError } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -36,13 +42,18 @@ const Auth = () => {
         }
       });
       error = signUpError;
+
+      if (error) {
+        setErrorMsg(error.message);
+      } else if (data?.user && !data?.session) {
+        // Supabase requires email confirmation
+        setErrorMsg('Registration successful! Please check your email to confirm your account before logging in.');
+        setIsLogin(true); // Switch to login mode for when they return
+      } else {
+        navigate('/');
+      }
     }
 
-    if (error) {
-      setErrorMsg(error.message);
-    } else {
-      navigate('/');
-    }
     setLoading(false);
   };
 
